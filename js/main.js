@@ -15,9 +15,22 @@ let toggleClass = (i,toggle) => {
 };
 
 let divSelection = d3.select('#viz').selectAll('div');
+let listSelection = d3.select('#legend').selectAll('li');
 
+divSelection.data(climate_daly_data)
+		.enter()
+	.append('div')
+		.attr('class', 'bar')
+		.style('width', (d) => {return d.deaths * 8 + 'px'})
+		.on('mouseover', (d, i) => toggleClass(i + 1, true))
+		.on('mouseout', (d, i) => toggleClass(i + 1, false))
 
-
+listSelection.data(climate_daly_data)
+		.enter()
+	.append('li')
+		.text((d) => {return d.region + ' : ' + d.deaths})
+		.on('mouseover', (d, i) => toggleClass(i + 1, true))
+		.on('mouseout', (d, i) => toggleClass(i + 1, false))
 
 
 
